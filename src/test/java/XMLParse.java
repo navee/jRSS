@@ -9,6 +9,7 @@ import org.rzzh.jrss.rssbean.Channel;
 import org.rzzh.jrss.rssbean.Item;
 import org.rzzh.jrss.rssbean.RSS;
 import org.rzzh.jrss.rssbean.User;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
