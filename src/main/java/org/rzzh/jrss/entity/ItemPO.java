@@ -1,18 +1,12 @@
-package org.rzzh.jrss.rssbean;
-
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
+package org.rzzh.jrss.entity;
 
 /**
- * Created by raozhanghui on 14/12/23.
+ * Created by raozhanghui on 14/12/25.
  */
-@XmlRootElement
-public class Channel {
+public class ItemPO{
     private String title;
     private String link;
     private String description;
-    private List<Item> item;
 
     public String getTitle() {
         return title;
@@ -37,13 +31,4 @@ public class Channel {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public List<Item> getItem() {
-        return item;
-    }
-
-    public void setItem(List<Item> item) {
-        this.item = item;
-    }
-
 }

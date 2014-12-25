@@ -2,9 +2,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.rzzh.jrss.dao.RSSDao;
+import org.rzzh.jrss.entity.ChannelPO;
+import org.rzzh.jrss.entity.ItemPO;
 import org.rzzh.jrss.rssbean.Channel;
 import org.rzzh.jrss.rssbean.Item;
 import org.rzzh.jrss.utils.RSSClient;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,7 +38,9 @@ public class DaoTest extends AbstractJUnit4SpringContextTests{
     public void testAddItems(){
         List<Item> items = RSSClient.getRssItems("http://cnbeta.feedsportal.com/c/34306/f/624776/index.rss");
         for(Item item:items){
-            rssDao.addItem(item);
+            ItemPO itemPO = new ItemPO();
+            BeanUtils.copyProperties(item,itemPO);
+            rssDao.addItem(itemPO);
         }
     }
 
@@ -43,19 +48,23 @@ public class DaoTest extends AbstractJUnit4SpringContextTests{
     public void testAddChannel(){
         String rssSourceLink = "http://cnbeta.feedsportal.com/c/34306/f/624776/index.rss";
         Channel channel = RSSClient.getChannel(rssSourceLink);
-        channel.setSourceLink(rssSourceLink);
-        rssDao.addChannel(channel);
+        ChannelPO channelPO = new ChannelPO();
+        BeanUtils.copyProperties(channel,channelPO);
+        channelPO.setSourceLink(rssSourceLink);
+        rssDao.addChannel(channelPO);
     }
 
     @Test
     public void asyncChannelItem(){
-        List<Channel> channels = rssDao.getAllChannel();
-        for(Channel channel : channels){
+        List<ChannelPO> channels = rssDao.getAllChannel();
+        for(ChannelPO channel : channels){
             String sourceLink = channel.getSourceLink();
             List<Item> items = RSSClient.getRssItems(sourceLink);
             for(Item item : items){
                 if(!rssDao.checkExistItem(item.getLink())){
-                    rssDao.addItem(item);
+                    ItemPO itemPO = new ItemPO();
+                    BeanUtils.copyProperties(item,itemPO);
+                    rssDao.addItem(itemPO);
                 }
             }
         }

@@ -1,5 +1,7 @@
 package org.rzzh.jrss.dao;
 
+import org.rzzh.jrss.entity.ChannelPO;
+import org.rzzh.jrss.entity.ItemPO;
 import org.rzzh.jrss.rssbean.Channel;
 import org.rzzh.jrss.rssbean.Item;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,19 +16,19 @@ import java.util.List;
  */
 @Repository
 public class RSSDao extends BaseDao{
-    public void addItem(Item item){
+    public void addItem(ItemPO item){
         String sql = "insert into item (title,link,description) values (?,?,?)";
         jdbcTemplate.update(sql,item.getTitle(),item.getLink(),item.getDescription());
     }
 
-    public void addChannel(Channel channel){
+    public void addChannel(ChannelPO channel){
         String sql = "insert into channel (title,link,description,source_link) values (?,?,?,?)";
         jdbcTemplate.update(sql,channel.getTitle(),channel.getLink(),channel.getDescription(),channel.getSourceLink());
     }
 
-    public List<Channel> getAllChannel(){
+    public List<ChannelPO> getAllChannel(){
         String sql = "select * from channel ";
-        return jdbcTemplate.query(sql,new ChannelRowMap());
+        return jdbcTemplate.query(sql,new ChannelPORowMap());
     }
 
     public boolean checkExistItem(String link){
@@ -35,10 +37,10 @@ public class RSSDao extends BaseDao{
         return count > 0 ? true : false;
     }
 
-    public class ChannelRowMap implements RowMapper<Channel>{
+    public class ChannelPORowMap implements RowMapper<ChannelPO>{
         @Override
-        public Channel mapRow(ResultSet resultSet, int i) throws SQLException {
-            Channel channel = new Channel();
+        public ChannelPO mapRow(ResultSet resultSet, int i) throws SQLException {
+            ChannelPO channel = new ChannelPO();
             channel.setTitle(resultSet.getString("title"));
             channel.setLink(resultSet.getString("link"));
             channel.setDescription(resultSet.getString("description"));
