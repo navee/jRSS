@@ -19,9 +19,7 @@ import java.util.List;
 /**
  * Created by raozhanghui on 14/12/24.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:applicationContext.xml"})
-public class DaoTest extends AbstractJUnit4SpringContextTests{
+public class DaoTest extends SpringTestBase{
     @Autowired
     private RSSDao rssDao;
 

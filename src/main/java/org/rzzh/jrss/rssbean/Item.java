@@ -1,5 +1,7 @@
 package org.rzzh.jrss.rssbean;
 
+import java.util.Date;
+
 /**
  * Created by raozhanghui on 14/12/23.
  */
@@ -7,6 +9,7 @@ public class Item {
     private String title;
     private String link;
     private String description;
+    private Date pubDate;
 
     public String getTitle() {
         return title;
@@ -32,12 +35,21 @@ public class Item {
         this.description = description;
     }
 
+    public Date getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "title='" + title + '\'' +
                 ", link='" + link + '\'' +
                 ", description='" + description + '\'' +
+                ", pubDate='"+pubDate + '\''+
                 '}';
     }
 }

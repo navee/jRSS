@@ -1,22 +1,17 @@
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.rzzh.jrss.rssbean.Channel;
 import org.rzzh.jrss.rssbean.Item;
 import org.rzzh.jrss.rssbean.RSS;
 import org.rzzh.jrss.rssbean.User;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.util.JAXBResult;
-import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -24,7 +19,7 @@ import java.io.StringWriter;
 /**
  * Created by raozhanghui on 14/12/23.
  */
-public class XMLParse {
+public class XMLParseTest {
     public static void main(String[] args){
         CloseableHttpClient client = HttpClients.createDefault();
 
@@ -33,7 +28,7 @@ public class XMLParse {
             HttpResponse response = client.execute(request);
             System.out.println(response.getStatusLine().getStatusCode());
             HttpEntity entity = response.getEntity();
-            XMLParse parse = new XMLParse();
+            XMLParseTest parse = new XMLParseTest();
 
             String xml = EntityUtils.toString(entity);
             EntityUtils.consume(entity);
