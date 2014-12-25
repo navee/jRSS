@@ -6,6 +6,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.rzzh.jrss.rssbean.Channel;
 import org.rzzh.jrss.rssbean.Item;
 import org.rzzh.jrss.rssbean.RSS;
 
@@ -31,6 +32,12 @@ public class RSSClient {
         return items;
     }
 
+    public static Channel getChannel(String url){
+        String rssXml = requestRssXml(url);
+        Channel channel = parseXml2Channel(rssXml);
+        return channel;
+    }
+
     private static String requestRssXml(String url){
         HttpGet request = new HttpGet("http://cnbeta.feedsportal.com/c/34306/f/624776/index.rss");
         HttpResponse response = null;
@@ -49,17 +56,22 @@ public class RSSClient {
     }
 
     private static List<Item> parestXml2Item(String xml){
+        Channel channel = parseXml2Channel(xml);
+        return channel.getItem();
+    }
+
+    private static Channel parseXml2Channel(String xml){
         JAXBContext jaxbContext = null;
-        List<Item> items = new ArrayList<Item>();
+        Channel channel = null;
         try {
             jaxbContext = JAXBContext.newInstance(RSS.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             StringReader stringReader = new StringReader(xml);
             RSS rss = (RSS) unmarshaller.unmarshal(stringReader);
-            items = rss.getChannel().getItem();
+            channel = rss.getChannel();
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        return items;
+        return channel;
     }
 }

@@ -12,6 +12,7 @@ public class Channel {
     private String title;
     private String link;
     private String description;
+    private String sourceLink;
     private List<Item> item;
 
     public String getTitle() {
@@ -44,5 +45,13 @@ public class Channel {
 
     public void setItem(List<Item> item) {
         this.item = item;
+    }
+
+    public String getSourceLink() {
+        return sourceLink;
+    }
+
+    public void setSourceLink(String sourceLink) {
+        this.sourceLink = sourceLink;
     }
 }

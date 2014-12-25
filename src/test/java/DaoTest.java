@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.rzzh.jrss.dao.RSSDao;
+import org.rzzh.jrss.rssbean.Channel;
 import org.rzzh.jrss.rssbean.Item;
 import org.rzzh.jrss.utils.RSSClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,32 @@ public class DaoTest extends AbstractJUnit4SpringContextTests{
     }
 
     @Test
-    public void testInsert(){
+    public void testAddItems(){
         List<Item> items = RSSClient.getRssItems("http://cnbeta.feedsportal.com/c/34306/f/624776/index.rss");
         for(Item item:items){
             rssDao.addItem(item);
+        }
+    }
+
+    @Test
+    public void testAddChannel(){
+        String rssSourceLink = "http://cnbeta.feedsportal.com/c/34306/f/624776/index.rss";
+        Channel channel = RSSClient.getChannel(rssSourceLink);
+        channel.setSourceLink(rssSourceLink);
+        rssDao.addChannel(channel);
+    }
+
+    @Test
+    public void asyncChannelItem(){
+        List<Channel> channels = rssDao.getAllChannel();
+        for(Channel channel : channels){
+            String sourceLink = channel.getSourceLink();
+            List<Item> items = RSSClient.getRssItems(sourceLink);
+            for(Item item : items){
+                if(!rssDao.checkExistItem(item.getLink())){
+                    rssDao.addItem(item);
+                }
+            }
         }
     }
 }
