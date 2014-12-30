@@ -45,7 +45,7 @@ public class Item {
 		this.pubDate = pubDate;
 	}
 
-	@Override
+    @Override
 	public String toString() {
 		return "Item{" + "title='" + title + '\'' + ", link='" + link + '\''
 				+ ", description='" + description + '\'' + ", pubDate='"

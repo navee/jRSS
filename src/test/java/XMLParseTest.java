@@ -6,7 +6,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.rzzh.jrss.rssbean.Item;
 import org.rzzh.jrss.rssbean.RSS;
-import org.rzzh.jrss.rssbean.User;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -79,4 +78,32 @@ public class XMLParseTest {
         return null;
     }
 
+    public class User{
+        private String  name;
+        private int age;
+
+        public User() {
+        }
+
+        public User(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+    }
 }

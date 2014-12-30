@@ -17,8 +17,13 @@ import java.util.List;
 @Repository
 public class RSSDao extends BaseDao{
     public void addItem(ItemPO item){
-        String sql = "insert into item (title,link,description) values (?,?,?)";
-        jdbcTemplate.update(sql,item.getTitle(),item.getLink(),item.getDescription());
+        String sql = "insert into item (channel_id,title,link,description,pub_date,sync_date) values (?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,item.getChannelId(),
+                                item.getTitle(),
+                                item.getLink(),
+                                item.getDescription(),
+                                item.getPubDate(),
+                                item.getSyncDate());
     }
 
     public void addChannel(ChannelPO channel){
@@ -41,6 +46,7 @@ public class RSSDao extends BaseDao{
         @Override
         public ChannelPO mapRow(ResultSet resultSet, int i) throws SQLException {
             ChannelPO channel = new ChannelPO();
+            channel.setId(resultSet.getLong("id"));
             channel.setTitle(resultSet.getString("title"));
             channel.setLink(resultSet.getString("link"));
             channel.setDescription(resultSet.getString("description"));
