@@ -4,7 +4,7 @@ CREATE TABLE `item` (
   `link` varchar(200) DEFAULT '',
   `description` text,
   `sync_date` date DEFAULT NULL,
-  `pub_date` date DEFAULT NULL,
+  `pub_date` varchar(64) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 
