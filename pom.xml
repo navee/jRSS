@@ -10,8 +10,14 @@
     <packaging>war</packaging>
 
     <properties>
+        <jdk.source.version>1.7</jdk.source.version>
+        <jdk.target.version>1.7</jdk.target.version>
+        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+
         <spring.version>4.1.1.RELEASE</spring.version>
         <logback.version>1.0.13</logback.version>
+        <jackson.version>2.6.3</jackson.version>
+
     </properties>
 
     <dependencies>
@@ -52,11 +58,47 @@
             <version>1.2.3</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.190</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${jdk.source.version}</source>
+                    <target>${jdk.target.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
 
 </project>

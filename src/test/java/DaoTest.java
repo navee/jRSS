@@ -38,6 +38,7 @@ public class DaoTest extends SpringTestBase{
         for(Item item:items){
             ItemPO itemPO = new ItemPO();
             BeanUtils.copyProperties(item,itemPO);
+            itemPO.setChannelId(1L);
             rssDao.addItem(itemPO);
         }
     }
